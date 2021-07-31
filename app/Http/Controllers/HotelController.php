@@ -14,7 +14,13 @@ class HotelController extends Controller
      */
     public function index()
     {
-        //
+        $hotels = Hotel::addSelect([
+                "hotels.*",
+                "advertisers.name as advertiser_name",
+            ])
+            ->advertisersJoin();
+
+        return $hotels->paginate(config('constants.default_paginate'));
     }
 
     /**
