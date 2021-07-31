@@ -137,7 +137,7 @@ class SyncAdvertisersDataCommand extends Command
             $this->newLine();
         }
 
-        $this->info("Command Ran Successfully");
+        $this->line("Command Ran Successfully");
 
         return 1;
     }

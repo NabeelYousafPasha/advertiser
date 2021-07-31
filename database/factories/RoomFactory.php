@@ -22,7 +22,13 @@ class RoomFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'code' => $this->faker->name(),
+            'hotel_id' => $this->faker->randomDigitNotZero(),
+            'net_price' => $this->faker->numberBetween(100, 5000),
+            'tax_price' => $this->faker->numberBetween(100, 5000),
+            'tax_type' => $this->faker->name(),
+            'tax_currency' => $this->faker->currencyCode(),
+            'total_price' => $this->faker->numberBetween(100, 5000),
         ];
     }
 }
