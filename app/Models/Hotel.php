@@ -31,4 +31,22 @@ class Hotel extends Model
     {
         return $this->hasMany(Room::class);
     }
+
+    // Scopes
+    public function scopeAdvertisersJoin($query, $advertiserId = null)
+    {
+        $query = $query->join('advertisers', function ($join) use ($advertiserId) {
+            $join->on('hotels.advertiser_id', '=', 'advertisers.id');
+
+            if (! is_null($advertiserId)) {
+                $join->where('hotels.advertiser_id', '=', $advertiserId);
+            }
+        });
+
+        if (! is_null($advertiserId)) {
+            $query->where('hotels.advertiser_id', '=', $advertiserId);
+        }
+
+        return $query;
+    }
 }
