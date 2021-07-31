@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Advertiser;
 use Illuminate\Database\Seeder;
 
 class AdvertiserSeeder extends Seeder
@@ -13,6 +14,12 @@ class AdvertiserSeeder extends Seeder
      */
     public function run()
     {
-        //
+        foreach (Advertiser::getAdvertisers() as $advertiser) {
+            Advertiser::firstOrCreate([
+                'code' => $advertiser['code'],
+            ], [
+                'name' => ucwords($advertiser['code']),
+            ]);
+        }
     }
 }
