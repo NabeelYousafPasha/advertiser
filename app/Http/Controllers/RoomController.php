@@ -18,14 +18,19 @@ class RoomController extends Controller
     {
         $request->header('Accept', 'application/json');
 
+        // sort order
         $sortColumn = $request->get('sort_column', 'total_price');
         $sortOrder = $request->get('sort_order', 'asc');
+
+        // filter
+        $hotelId = $request->get('hotel_id', null);
 
         $rooms = Room::addSelect([
                 "rooms.*",
                 "hotels.name as hotel_name",
+                "hotels.rating as hotel_rating",
             ])
-            ->hotelsJoin();
+            ->hotelsJoin($hotelId);
 
         // exclude SAME CODE rooms with in hotels but the ones which are with higher price
         if (! config('constants.include_duplicates_on_listing_rooms')) {
