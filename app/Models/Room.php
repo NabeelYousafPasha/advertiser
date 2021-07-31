@@ -24,4 +24,10 @@ class Room extends Model
         'created_at',
         'updated_at',
     ];
+
+    // Relationships
+    public function hotel()
+    {
+        return $this->belongsTo(Hotel::class);
+    }
 }
