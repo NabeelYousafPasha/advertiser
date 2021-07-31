@@ -1,62 +1,91 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
-
 <p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+    <a href="https://www.upwork.com/freelancers/~01f18b2d600d89b4d8" 
+    target="_blank">
+        <img src="https://avatars.githubusercontent.com/u/46818315?v=4" width="200">
+    </a>
 </p>
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Upwork Project - Advertiser Task 
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Use Laravel framework to get the job done. The only constraint is that your application needs to run on our local machine (see below how we will run your code).
 
-## Learning Laravel
+TASKS - Your code needs to fulfil the following requirements:
+1. Implement an API endpoint that returns a JSON response that contains a list of
+   hotel rooms (cheapest to most expensive).
+2. Filter the results in such a way that you never show the exact same room more
+   than once. (For example, both APIs offer information regarding ‘Hotel B’ with room
+   code ‘DBL-RM’ and thus should only be shown 1 time with the lowest price in the final listing)
+3. Make the code easily extensible to new advertisers (APIs).
+4. Provide unit and/or integration tests for your code.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Note: 
+- Your code should be reliable in case the API is down.
+- (Dockerize the application.) if possible
+- Your code will include OOP implementation, including interfaces and design patterns. Namespaces, closures, and anonymous functions.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Codebase
 
-## Laravel Sponsors
+- Wrote a console command to sync and update database, instead of HTTP / CURL call to EP (end points) in order to address point:
+    - Your code should be reliable in case the API is down.
+    - App\Console\Commands\SyncAdvertisersDataCommand
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-### Premium Partners
+- Implemented several Interfaces to each Advertiser Services in order to address:
+    - Make the code easily extensible to new advertisers (APIs). 
+    
+    
+    App\Interfaces\{
+        AdvertiserInterface, HotelInterface
+        RoomInterface, TaxableInterface
+    }
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
+## How to Run
 
-## Contributing
+### Migrate
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+    php artisan migrate
 
-## Code of Conduct
+### Seed
+    php artisan db:seed
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Console Command 
+    php artisan advertiser:sync-advertisers-data
 
-## Security Vulnerabilities
+### Tests
+    vendor/bin/phpunit
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    vendor/bin/phpunit tests/Unit/Console/SyncAdvertisersDataCommandTest.php  --stop-on-error
+    vendor/bin/phpunit tests/tests/Unit/RoomFilterTest.php
+    vendor/bin/phpunit tests/tests/Unit/AdvertiserTest.php.php
 
-## License
+## EP (End Points)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Web
+
+- /
+- health-check
+- ping
+
+### APIs
+
+- /api/advertisers
+- /api/hotels
+- /api/rooms
+    - Query Parameters to perfom SORT, FILTER: 
+        - optional query params: hotel_id, sort_column, sort_order
+        - hotel_id: valid hotel id
+        - sort_column: net_price, tax_price, total_price
+        - sort_order: asc, desc
+    
+    - default: /api/rooms?sort_column=total_price&sort_order=asc
+
+## Contact Me
+
+- **[Gmail: nabeelyousafpasha@gmail.com](nabeelyousafpasha@gmail.com)**
+- **[Github: https://github.com/NabeelYousafPasha](https://github.com/NabeelYousafPasha)**
+- **[Upwork: https://www.upwork.com/freelancers/~01f18b2d600d89b4d8](https://www.upwork.com/freelancers/~01f18b2d600d89b4d8)**
+- **[Phone / WhatsApp: +92 321 5031089](03215031089)**
+- **[LinkedIn: https://pk.linkedin.com/in/nabeelyousafpasha](https://pk.linkedin.com/in/nabeelyousafpasha)**
+- **[Twitter: https://twitter.com/nabeelusafpasha](https://twitter.com/nabeelusafpasha)**
