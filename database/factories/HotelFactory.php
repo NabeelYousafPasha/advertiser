@@ -22,7 +22,9 @@ class HotelFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name' => $this->faker->name(),
+            'advertiser_id' => $this->faker->randomDigitNotZero(),
+            'rating' => $this->faker->numberBetween(1, 5),
         ];
     }
 }
