@@ -28,6 +28,10 @@ return [
 
     'env' => env('APP_ENV', 'production'),
 
+    'api' => [
+        "current_version" => env("APP_API_VERSION", 'v1'),
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Application Debug Mode
