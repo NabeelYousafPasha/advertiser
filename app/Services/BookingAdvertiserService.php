@@ -5,9 +5,11 @@ namespace App\Services;
 
 
 use App\Interfaces\AdvertiserInterface;
+use App\Interfaces\HotelInterface;
+use App\Interfaces\RoomInterface;
 use App\Models\Advertiser;
 
-class BookingAdvertiserService implements AdvertiserInterface
+class BookingAdvertiserService implements AdvertiserInterface, HotelInterface, RoomInterface
 {
 
     public function unqiueCodeOfAdvertiser()
